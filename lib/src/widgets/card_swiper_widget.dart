@@ -23,7 +23,7 @@ class CardSwiper extends StatelessWidget {
             child: Image.network("http://via.placeholder.com/350x150",fit: BoxFit.cover),
           );
         },
-        itemCount: 3,
+        itemCount: peliculas.length,
         // pagination: new SwiperPagination(),
         // control: new SwiperControl(),
       ),
