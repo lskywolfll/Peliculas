@@ -67,4 +67,13 @@ class Pelicula {
     overview = json['overview'];
     posterPath = json['poster_path'];
   }
+
+  getPosterImg(){
+
+    if( posterPath == null ){
+      return "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn2.iconfinder.com%2Fdata%2Ficons%2Fphoto-and-video%2F500%2FLandscape_moon_mountains_multiple_photo_photograph_pictury_sun-512.png&f=1&nofb=1";
+    }else{
+      return "https://image.tmdb.org/t/p/w500/$posterPath";
+    }
+  }
 }
