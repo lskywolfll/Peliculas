@@ -89,7 +89,7 @@ class PeliculaDetalle extends StatelessWidget {
                     overflow: TextOverflow.ellipsis),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.star_border),
+                    Icon(Icons.star, color: Colors.yellow[800],),
                     Text(pelicula.voteAverage.toString(),
                         style: Theme.of(context).textTheme.headline5)
                   ],
