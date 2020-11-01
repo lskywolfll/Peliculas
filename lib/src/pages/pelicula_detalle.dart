@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:peliculas/src/providers/peliculas_providers.dart';
+import 'package:peliculas/src/widgets/video_player.dart';
+import 'package:peliculas/src/widgets/youtube_player.dart';
 
 class PeliculaDetalle extends StatelessWidget {
   @override
@@ -25,6 +27,8 @@ class PeliculaDetalle extends StatelessWidget {
               _descripcion(pelicula),
               _descripcion(pelicula),
               _crearCasting(pelicula),
+              // VideoPlayerByUrl(videoUrl: 'https://www.youtube.com/watch?v=7Y6-w5Psupw'),
+              VideoYoutubePorKey(keyYoutube: "7Y6-w5Psupw"),
             ]),
           )
         ],
