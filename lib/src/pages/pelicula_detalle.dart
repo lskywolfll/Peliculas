@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
+import 'package:peliculas/src/models/video_model.dart';
 import 'package:peliculas/src/providers/peliculas_providers.dart';
 import 'package:peliculas/src/widgets/video_player.dart';
 import 'package:peliculas/src/widgets/youtube_player.dart';
@@ -27,12 +28,51 @@ class PeliculaDetalle extends StatelessWidget {
               _descripcion(pelicula),
               _descripcion(pelicula),
               _crearCasting(pelicula),
+              _crearVideoYoutube(pelicula)
               // VideoPlayerByUrl(videoUrl: 'https://www.youtube.com/watch?v=7Y6-w5Psupw'),
-              VideoYoutubePorKey(keyYoutube: "7Y6-w5Psupw"),
+              // VideoYoutubePorKey(keyYoutube: "7Y6-w5Psupw"),
             ]),
           )
         ],
       ),
+    );
+  }
+
+  Widget _videoYoutube(Video video){
+
+    if(video.site == "YouTube"){
+      return VideoYoutubePorKey(keyYoutube: video.key);
+    }else{
+      return Container();
+    }
+  }
+
+  Widget _crearPaginasVideo(List<Video> videos){
+    return SizedBox(
+      height: 300.0,
+      child: PageView.builder(
+        pageSnapping: false,
+        itemCount: videos.length,
+        controller: PageController(initialPage: 1),
+        itemBuilder: (context, index) {
+          return _videoYoutube(videos[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _crearVideoYoutube(Pelicula pelicula){
+    final peliProvider = new PeliculasProvider();
+
+    return FutureBuilder(
+      future: peliProvider.getVideos(pelicula.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if(snapshot.hasData){
+          return _crearPaginasVideo(snapshot.data);
+        }else{
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
