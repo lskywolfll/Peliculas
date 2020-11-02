@@ -38,16 +38,15 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _videoYoutube(Video video){
-
-    if(video.site == "YouTube"){
+  Widget _videoYoutube(Video video) {
+    if (video.site == "YouTube") {
       return VideoYoutubePorKey(keyYoutube: video.key);
-    }else{
+    } else {
       return Container();
     }
   }
 
-  Widget _crearPaginasVideo(List<Video> videos){
+  Widget _crearPaginasVideo(List<Video> videos) {
     return SizedBox(
       height: 300.0,
       child: PageView.builder(
@@ -61,15 +60,15 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _crearVideoYoutube(Pelicula pelicula){
+  Widget _crearVideoYoutube(Pelicula pelicula) {
     final peliProvider = new PeliculasProvider();
 
     return FutureBuilder(
       future: peliProvider.getVideos(pelicula.id.toString()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           return _crearPaginasVideo(snapshot.data);
-        }else{
+        } else {
           return Center(child: CircularProgressIndicator());
         }
       },
@@ -165,11 +164,14 @@ class PeliculaDetalle extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image(
-              image: NetworkImage(pelicula.getPosterImg()),
-              height: 150.0,
+          Hero(
+            tag: pelicula.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image(
+                image: NetworkImage(pelicula.getPosterImg()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(width: 20.0),

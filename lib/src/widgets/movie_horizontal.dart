@@ -7,17 +7,16 @@ class MovieHorizontal extends StatelessWidget {
 
   MovieHorizontal({@required this.peliculas, @required this.siguientePagina});
 
-  final _pageController = new PageController(
-    initialPage: 1,
-    viewportFraction: 0.3
-  );
+  final _pageController =
+      new PageController(initialPage: 1, viewportFraction: 0.3);
 
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    
+
     _pageController.addListener(() {
-      if(_pageController.position.pixels >= _pageController.position.maxScrollExtent - 200){
+      if (_pageController.position.pixels >=
+          _pageController.position.maxScrollExtent - 200) {
         siguientePagina();
       }
     });
@@ -25,21 +24,23 @@ class MovieHorizontal extends StatelessWidget {
     return Container(
       height: _screenSize.height * 0.23,
       child: PageView.builder(
-        pageSnapping: false,
-        controller: _pageController,
-        // children: _tarjetas(context),
-        itemCount: peliculas.length,
-        itemBuilder: (context, posicion) => _tarjeta(context, peliculas[posicion])
-      ),
+          pageSnapping: false,
+          controller: _pageController,
+          // children: _tarjetas(context),
+          itemCount: peliculas.length,
+          itemBuilder: (context, posicion) =>
+              _tarjeta(context, peliculas[posicion])),
     );
   }
 
-  Widget _tarjeta(BuildContext context, Pelicula pelicula){
+  Widget _tarjeta(BuildContext context, Pelicula pelicula) {
     final tarjeta = Container(
-        margin: EdgeInsets.only(right: 5.0),
-        child: Column(
-          children: <Widget>[
-            ClipRRect(
+      margin: EdgeInsets.only(right: 5.0),
+      child: Column(
+        children: <Widget>[
+          Hero(
+            tag: pelicula.id,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: FadeInImage(
                 image: NetworkImage(pelicula.getPosterImg()),
@@ -48,17 +49,18 @@ class MovieHorizontal extends StatelessWidget {
                 height: 150.0,
               ),
             ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              pelicula.title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption,
-            )
-          ],
-        ),
-      );
+          ),
+          SizedBox(
+            height: 5.0,
+          ),
+          Text(
+            pelicula.title,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.caption,
+          )
+        ],
+      ),
+    );
 
     return GestureDetector(
       onTap: () {
