@@ -3,7 +3,6 @@ import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:peliculas/src/models/video_model.dart';
 import 'package:peliculas/src/providers/peliculas_providers.dart';
-import 'package:peliculas/src/widgets/video_player.dart';
 import 'package:peliculas/src/widgets/youtube_player.dart';
 
 class PeliculaDetalle extends StatelessWidget {
@@ -165,7 +164,7 @@ class PeliculaDetalle extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Hero(
-            tag: pelicula.id,
+            tag: pelicula.uniqueId,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Image(
